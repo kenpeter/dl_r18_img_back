@@ -3,9 +3,13 @@ var imageDAO = new ImageDAO();
 
 var Home = {
   index: function(req, res){
-    imageDAO.list().then((data) => {
-      //res.json({ list: data });
-      console.log(data);
+    //console.log(req.query);
+    let page = req.query.page;
+    let limit = req.query.limit;
+
+    imageDAO.list(page, limit).then((data) => {
+      res.json({ list: data.docs });
+      //console.log(data);
     });
 
   }

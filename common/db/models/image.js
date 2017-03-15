@@ -1,3 +1,5 @@
+var mongoosePaginate = require('mongoose-paginate');
+
 // mongodb, which is the mongoose instance
 var mongodb = require('../connect');
 // mongoose schema, used as new Schema
@@ -14,6 +16,9 @@ var ImageSchema = new Schema({
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now }
 });
+
+//
+ImageSchema.plugin(mongoosePaginate);
 
 // constructor
 var ImageDAO = function(){};
@@ -44,15 +49,28 @@ ImageDAO.prototype =  {
     });
   }, // end save
 
-  list: function(){
+  list: function(page = 1, limit = 100){
     return new Promise(function(resolve, reject){
-      Image.find({})
-        .limit(2)
-        .exec((err, d) => {
-          //console.log("-- data --");
-          //console.log(d);
-          resolve && resolve(d);
-        });
+        /*
+        Image.find({})
+          .limit(2)
+          .exec((err, d) => {
+            //console.log("-- data --");
+            //console.log(d);
+            resolve && resolve(d);
+          });
+      */
+      let options = {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        sort:{
+          createdDate: -1 //Sort by Date Added DESC
+        }
+      };
+      Image.paginate({}, options).then(function(res) {
+        resolve && resolve(res);
+      });
+
     });
   },
 

@@ -1,3 +1,5 @@
+var mongoosePaginate = require('mongoose-paginate');
+
 // Why do we connect mongo db here
 // because when we import a model, this var is global
 // so will be executed.
@@ -14,6 +16,9 @@ var CategorySchema = new Schema({
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now }
 });
+
+// with pagination
+CategorySchema.plugin(mongoosePaginate);
 
 // constructor
 var CategoryDAO = function(){};

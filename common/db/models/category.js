@@ -1,8 +1,4 @@
 var mongoosePaginate = require('mongoose-paginate');
-
-// Why do we connect mongo db here
-// because when we import a model, this var is global
-// so will be executed.
 var mongodb = require('../connect');
 // mongoose schema, used as new Schema
 var Schema = mongodb.mongoose.Schema;

@@ -2,8 +2,13 @@ var mongoosePaginate = require('mongoose-paginate');
 
 // mongodb, which is the mongoose instance
 var mongodb = require('../connect');
+
+// https://stackoverflow.com/questions/20832126/missingschemaerror-schema-hasnt-been-registered-for-model-user
+require('./category');
+
 // mongoose schema, used as new Schema
 var Schema = mongodb.mongoose.Schema;
+
 // var promise
 // requre
 // es6 promise, other promise lib
@@ -12,7 +17,7 @@ var Promise = require('es6-promise').Promise;
 var ImageSchema = new Schema({
   fileName : String,
   filePath : String,
-  categoryId: Schema.Types.ObjectId,
+  category: { type: Schema.Types.ObjectId, ref: 'Category' },
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now }
 });
@@ -51,15 +56,6 @@ ImageDAO.prototype =  {
 
   list: function(page = 1, limit = 100){
     return new Promise(function(resolve, reject){
-        /*
-        Image.find({})
-          .limit(2)
-          .exec((err, d) => {
-            //console.log("-- data --");
-            //console.log(d);
-            resolve && resolve(d);
-          });
-      */
       let options = {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -67,10 +63,21 @@ ImageDAO.prototype =  {
           createdDate: -1 //Sort by Date Added DESC
         }
       };
-      Image.paginate({}, options).then(function(res) {
-        resolve && resolve(res);
-      });
 
+      Image
+        .paginate({}, options)
+        .then(function(res) {
+          resolve && resolve(res);
+        });
+
+      /*
+      Image
+        .find({})
+        .exec()
+        .then(function(res) {
+          resolve && resolve(res);
+        });
+      */  
     });
   },
 

@@ -8,8 +8,8 @@ var Home = {
     let limit = req.query.limit;
 
     imageDAO.list(page, limit).then((data) => {
-      res.json({ list: data.docs });
-      //console.log(data);
+      //res.json({ list: data.docs });
+      console.log(data);
     });
 
   }

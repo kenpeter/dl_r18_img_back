@@ -55,8 +55,11 @@ ImageDAO.prototype =  {
     });
   }, // end save
 
-  list: function(page = 1, limit = 100){
+  list: function(page = 1, limit = 100) {
+    var thePage = parseInt(page);
+    var theLimit = parseInt(limit);
     return new Promise(function(resolve, reject){
+      /*
       let options = {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -64,6 +67,7 @@ ImageDAO.prototype =  {
           createdDate: -1 //Sort by Date Added DESC
         }
       };
+      */
 
       /*
       Image
@@ -87,9 +91,12 @@ ImageDAO.prototype =  {
       Image
         .find()
         .populate('category')
-        .paginate(page, limit)
+        .paginate(thePage, theLimit)
         .exec(function(err, docs) {
-          //console.log('docs: ', docs);
+          //test
+          //console.log("-- data --?");
+          //console.log(docs);
+
           resolve && resolve(docs);
         });
 

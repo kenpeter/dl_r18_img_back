@@ -30,6 +30,7 @@ module.exports = {
       }
   },
   imgRootPath: {
-    path: '/var/www/html/test/testme/dl_r18_img/upload/**/*.jpg'
+    path: '/var/www/html/test/testme/dl_r18_img/upload/**/*.jpg',
+    publicPath: '/var/www/html/test/testme/dl_r18_img/upload'
   }
 }

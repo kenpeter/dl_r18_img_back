@@ -13,6 +13,8 @@ const cookieParser = require('cookie-parser');
 const compression = require('compression');
 // parse request bogy
 const bodyParser = require('body-parser');
+//
+var cors = require('cors');
 // config, like mongo db
 const config = require('./config');
 // the route we have is home.js, spiderErr.js, statis.js
@@ -20,6 +22,9 @@ const routes = require('./routes/index');
 
 // express app
 const app = express();
+
+//
+app.use(cors());
 
 // app uses favicon
 // favicon
@@ -44,7 +49,8 @@ app.use(cookieParser());
 // app uses
 // express static(__dirname/public)
 // __dirname/public
-app.use(express.static(path.join(__dirname, 'public')));
+// https://expressjs.com/en/starter/static-files.html
+app.use('/upload', express.static(config.imgRootPath.publicPath));
 
 // app uses root path with routes
 app.use('/', routes);

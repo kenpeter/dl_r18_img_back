@@ -1,4 +1,5 @@
 var mongoosePaginate = require('mongoose-paginate');
+var mongoosePagination = require('mongoose-pagination');
 
 // mongodb, which is the mongoose instance
 var mongodb = require('../connect');
@@ -64,20 +65,43 @@ ImageDAO.prototype =  {
         }
       };
 
+      /*
       Image
         .paginate({}, options)
         .then(function(res) {
           resolve && resolve(res);
         });
+      */
+
+      /*
+      Image
+        .populate('category')
+        .execPopulate()
+        .paginate({}, options)
+        .then(function(res) {
+          resolve && resolve(res);
+        });
+      */
+
+      // https://www.npmjs.com/package/mongoose-pagination
+      Image
+        .find()
+        .populate('category')
+        .paginate(page, limit)
+        .exec(function(err, docs) {
+          //console.log('docs: ', docs);
+          resolve && resolve(docs);
+        });
 
       /*
       Image
         .find({})
+        ..populate('category')
         .exec()
         .then(function(res) {
           resolve && resolve(res);
         });
-      */  
+      */
     });
   },
 

@@ -11,11 +11,11 @@ var Home = {
       let myData = {
         current_page: parseInt(page),
         last_page: 100,
-        next_page_url: 'http://dl_r18_img_back.local/?' + 'page=' + page + '&' + 'limit=' + limit,
-        "prev_page_url": 'http://dl_r18_img_back.local/?' + 'page=' + (page-1) + '&' + 'limit=' + limit,
-        "data": data,
+        next_page_url: 'http://dl_r18_img_back.local/?' + 'page=' + (page+1) + '&' + 'limit=' + limit,
+        prev_page_url: 'http://dl_r18_img_back.local/?' + 'page=' + (page-1) + '&' + 'limit=' + limit,
+        data: data,
       };
-      res.json({ nested: myData });
+      res.json(myData);
       //console.log(data);
     });
 

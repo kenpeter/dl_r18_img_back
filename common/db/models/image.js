@@ -59,33 +59,6 @@ ImageDAO.prototype =  {
     var thePage = parseInt(page);
     var theLimit = parseInt(limit);
     return new Promise(function(resolve, reject){
-      /*
-      let options = {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        sort:{
-          createdDate: -1 //Sort by Date Added DESC
-        }
-      };
-      */
-
-      /*
-      Image
-        .paginate({}, options)
-        .then(function(res) {
-          resolve && resolve(res);
-        });
-      */
-
-      /*
-      Image
-        .populate('category')
-        .execPopulate()
-        .paginate({}, options)
-        .then(function(res) {
-          resolve && resolve(res);
-        });
-      */
 
       // https://www.npmjs.com/package/mongoose-pagination
       Image
@@ -100,15 +73,6 @@ ImageDAO.prototype =  {
           resolve && resolve(docs);
         });
 
-      /*
-      Image
-        .find({})
-        ..populate('category')
-        .exec()
-        .then(function(res) {
-          resolve && resolve(res);
-        });
-      */
     });
   },
 
